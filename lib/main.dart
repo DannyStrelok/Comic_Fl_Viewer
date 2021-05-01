@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:ui' as ui;
 import 'dart:async';
 import 'package:comic_f_viewer/routing/routes.dart';
 import 'package:comic_f_viewer/services/auth/authetication_service.dart';
@@ -18,11 +20,14 @@ void main() async {
     await Future<void>.delayed(Duration.zero);
   }
 
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+
+  }
+
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (_) => AutheticationService())],
     child: _AppBootstrapper(),
   ));
-
 }
 
 class _AppBootstrapper extends StatefulWidget {
@@ -34,13 +39,18 @@ class __AppBootstrapperState extends State<_AppBootstrapper> {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Comic F* Viewer',
-      initialRoute: 'launcher',
-      routes: appRoutes,
-      theme: ThemeData(brightness: Brightness.dark,
-      navigationPanelTheme: NavigationPanelThemeData(highlightColor: Colors.transparent)
-      )
+        debugShowCheckedModeBanner: false,
+        title: 'Comic F* Viewer',
+        initialRoute: 'launcher',
+        routes: appRoutes,
+        theme: ThemeData(
+          focusTheme: FocusThemeData(
+            glowFactor: 4.0,
+          ),
+            brightness: Brightness.dark,
+            navigationPanelTheme:
+                NavigationPanelThemeData(highlightColor: Colors.transparent),
+        )
     );
   }
 }

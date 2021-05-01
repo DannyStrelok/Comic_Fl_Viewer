@@ -1,15 +1,47 @@
+import 'package:comic_f_viewer/widgets/book/book_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 class LibraryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [_Background()],
+    return Scaffold(
+      header: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(width: 25,),
+            Expanded(child: Text('Biblioteca')),
+            IconButton(icon: Icon(Icons.filter_alt_outlined)),
+            IconButton(icon: Icon(Icons.playlist_add_check)),
+            IconButton(icon: Icon(Icons.more_horiz)),
+          ],
+        ),
+      ),
+      body: Container(
+        child: Stack(
+          children: [_Background(), _Bookshelf()],
+        ),
       ),
     );
   }
 }
+
+class _Bookshelf extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      child: SingleChildScrollView(
+        child: Wrap(
+          spacing: 25,
+          runSpacing: 25,
+          children: List.generate(15, (index) => BookWidget(title: 'libro $index',)),
+        ),
+      ),
+    );
+  }
+}
+
 
 class _Background extends StatelessWidget {
   @override
@@ -33,3 +65,15 @@ class _Background extends StatelessWidget {
     ]);
   }
 }
+
+class _BookPlaceholder extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 175,
+      height: 250,
+      color: Colors.grey,
+    );
+  }
+}
+
